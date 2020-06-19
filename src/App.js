@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
+import Routes from './config/routes'
+import Navbar from './components/Navbar'
+import UserModel from './models/user'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    currentUser: localStorage.getItem('uid')
+  }
+
+  setCurrentUser = (userId) => {
+    this.setState({ currentUser: userId })
+    localStorage.setItem('uid', userId)
+  }
+
+  logout = (event) => {
+    event.preventDefault();
+
+    localStorage.removeItem('uid')
+    UserModel.logout()
+      .then(res => {
+        console.log(res)
+        this.setState({ currentUser: null })
+        this.props.history.push('/login')
+      })
+      .catch(err => console.log(err))
+  }
+  
+  render() {
+    return (
+      <>
+        <Navbar 
+          currentUser={this.state.currentUser} 
+          logout={this.logout}   
+        />
+        <div className="container">
+          <Routes 
+            currentUser={this.state.currentUser} 
+            setCurrentUser={this.setCurrentUser} 
+          />
+        </div>
+      </>
+    )
+  }
 }
 
-export default App;
+export default withRouter(App);
