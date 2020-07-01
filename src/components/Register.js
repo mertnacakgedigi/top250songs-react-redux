@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import UserModel from '../models/user'
+import { connect } from 'react-redux'
+import * as actions from '../store/actions/authAction'
 
 class Register extends Component {
   state = {
@@ -19,22 +20,13 @@ class Register extends Component {
     })
   }
 
-  // handles submit event when the user submits the form: handleSubmit()
+
   handleSubmit = (event) => {
-    // stop the default form event from firing
+    
     event.preventDefault()
-    // make an axios call to the API register route
-    UserModel.create(this.state)
-      .then(res => {
-        this.setState({
-          first_name: '',
-          last_name: '',
-          password: '',
-          email: ''
-        })
-        this.props.history.push('/login')
-      })
-      .catch(err => console.log(err))
+    this.props.register(this.state)
+    this.props.history.push('/login')
+
   }
 
   render() {
@@ -77,4 +69,17 @@ class Register extends Component {
   }
 }
 
-export default Register;
+
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
+    data : state.data
+  }
+}
+const mapDispactToProps = (dispatch) => {
+  return {
+    register : (props) => dispatch(actions.registerAction(props))
+  }
+}
+
+export default connect(mapStateToProps,mapDispactToProps)(Register)

@@ -2,11 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
-import  {createStore} from "redux"
+import  {createStore,applyMiddleware} from "redux"
 import {Provider} from "react-redux"
-import getList from './reducers/getList'
+import rootReducer from './store/reducers'
+import thunk from 'redux-thunk'
 
-const store = createStore(getList)
+
+const store = createStore(rootReducer,applyMiddleware(thunk))
 
 ReactDOM.render(
   <React.StrictMode>

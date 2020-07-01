@@ -1,7 +1,14 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom'
+import { connect } from "react-redux"
+import * as actions from "../store/actions/authAction"
 
 const Navbar = (props) => {
+  const logout = event => {
+    event.preventDefault()
+    props.logoutAction()
+  }
+ 
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
         <div className="container">
@@ -15,16 +22,16 @@ const Navbar = (props) => {
               <li className="nav-item">
                 <NavLink className="nav-link" exact to="/">Home</NavLink>
               </li>
-              { props.currentUser ? 
+            {props.currentUser ?
                 <>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/profile">Profile</NavLink>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/logout" onClick={ props.logout }>Logout</a>
+                    <a className="nav-link" href="/logout" onClick={logout}>Logout</a>
                   </li>
                 </>
-              :
+                :
                 <>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/register">Register</NavLink>
@@ -33,7 +40,7 @@ const Navbar = (props) => {
                     <NavLink className="nav-link" to="/login">Login</NavLink>
                   </li>
                 </>
-              }
+            }
             </ul>
           </div>
         </div>
@@ -41,4 +48,17 @@ const Navbar = (props) => {
     );
 }
 
-export default Navbar;
+const mapStoreToProps = (store) => {
+
+  return {
+    currentUser : store.authReducer.currentUser
+  }
+}
+
+const mapDispactToProps = (dispatch) => {
+  return {
+    logoutAction : (e) => dispatch(actions.logoutAction(e))
+  }
+}
+
+export default connect(mapStoreToProps,mapDispactToProps)(Navbar);

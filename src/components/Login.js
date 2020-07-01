@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import UserModel from '../models/user'
+import {connect} from "react-redux"
+import * as actions from '../store/actions/authAction'
+
 
 class Login extends Component {
   state = {
@@ -15,12 +17,10 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    UserModel.login(this.state)
-      .then((res) => {
-        this.props.setCurrentUser(res.data.data)
-        this.props.history.push('/profile')
-      })
-      .catch((err) => console.log(err))
+    this.props.login(this.state)
+    this.props.history.push('/profile')
+
+
   }
 
   render() {
@@ -48,4 +48,16 @@ class Login extends Component {
   }
 }
 
-export default Login
+const mapStateToProps = (state) => {
+  return {
+    data : state.data
+  }
+}
+
+const mapDispactToProps = (dispatch) => {
+  return {
+    login : (props) => dispatch(actions.loginAction(props))
+  }
+}
+
+export default connect(mapStateToProps,mapDispactToProps)(Login)
