@@ -45,6 +45,7 @@ export const postRatingAction = (data) => {
 }
 
 const getUserRating = (data) => {
+    
     return {
         type :"USER_RATING",
         data
@@ -52,8 +53,10 @@ const getUserRating = (data) => {
 }
 
 export const getUserRatingAction = (data) => {
+
     return(dispatch) => {
-        axios.get("http://localhost:3030/api/v1/userRating",data)
-            .then(res => dispatch(getUserRating(data)))
+        axios.post("http://localhost:3030/api/v1/userrating",data)
+            .then(res => {dispatch(getUserRating(res.data))})
+            .catch(err => console.log(err))
     }
 }

@@ -2,56 +2,98 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/apiAction'
 import { FaStar } from 'react-icons/fa'
+import StarRatings from 'react-star-ratings';
 import "./star.css"
+import UserRating from './UserRating'
 export class Rating extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            rating: null,
+            user_id:localStorage.getItem("uid"),
+            song_id:this.props.song.id
+        };
+
+       
+    }
     
-    state ={
-        rating: null,
-        user_id:localStorage.getItem("uid"),
-        song_id:this.props.song.id
-    }
+    
 
-    componentwillMount=() => {
-        // this.props.getUserRating({user_id:localStorage.getItem("uid"),
-        // song_id:this.props.song.id})
-    }
-  
 
-      handleSubmit = ( event ) =>{
-        let newRating = event.target.parentNode.dataset.value
-        console.log(newRating)
+      handleSubmit = ( newRating ) =>{
+    
+        // console.log(newRating)
         this.setState({rating : newRating})
         // console.log(this.state.rating)
         this.props.postRating({rating:parseInt(newRating), 
             user_id:localStorage.getItem("uid"),
              song_id:this.props.song.id})
-        window.location.reload()
+            window.location.reload()
       }
     
 
     render() {
-    
+        let userRating = this.props.userRatingRedux
+        if(userRating!==null){ var filtered = userRating.result.find(element => element.song_id===this.props.song.id)}
+       
+       if(filtered !== undefined) {var rating = filtered}
+       
         const a  = this.props.song.a
         if (a!==null){ var b = a.toFixed(1)}
-        console.log(this.props)
+        console.log(b)
      
         return (
      
             <>
-            <td>****{b}</td>
+            <td>         
+            { typeof b !== "undefined" ?         
+        <>  <StarRatings
+          rating={parseInt(b)}
+          starRatedColor="blue"
+          changeRating={this.handleSubmit}
+          numberOfStars={10}
+          name='rating'
+          starDimension ="15px"
+          starSpacing="0px"
+          isSelectable="false"
+
+        /> <span>{b}</span>  </>
+        :
+        <StarRatings
+        rating= {0}
+        starRatedColor="blue"
+        changeRating={this.handleSubmit}
+        numberOfStars={10}
+        name='rating'
+        starDimension ="15px"
+        starSpacing="0px"
+
+      /> 
+        } </td>
             <td colSpan="2">
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="1"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="2"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="3"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="4"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="5"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="6"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="7"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="8"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="9"/>
-            <FaStar className="star" size={12} onClick={this.handleSubmit} data-value="10"/>
-           {/* <p>{this.props.userRating[0]}</p>  */}
-       
+ 
+            { typeof rating !== "undefined" ?         
+        <StarRatings
+          rating={rating.r}
+          starRatedColor="blue"
+          changeRating={this.handleSubmit}
+          numberOfStars={10}
+          name='rating'
+          starDimension ="15px"
+          starSpacing="0px"
+
+        /> :
+        <StarRatings
+        rating= {0}
+        starRatedColor="blue"
+        changeRating={this.handleSubmit}
+        numberOfStars={10}
+        name='rating'
+        starDimension ="15px"
+        starSpacing="0px"
+
+      /> 
+        }
             </td>
             </>
             
@@ -62,7 +104,7 @@ export class Rating extends Component {
 const mapStateToProps = (state) => {
     return {
       rating : state.listReducer.userRating,
-      userRating : state.listReducer.userRatingList
+      userRatingRedux : state.listReducer.userRatingList
     }
 }
 

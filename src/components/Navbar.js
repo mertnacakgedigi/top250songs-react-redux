@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import * as actions from "../store/actions/authAction"
 
 const Navbar = (props) => {
+
   const logout = event => {
     event.preventDefault()
     props.logoutAction()
@@ -22,7 +23,7 @@ const Navbar = (props) => {
               <li className="nav-item">
                 <NavLink className="nav-link" exact to="/">Home</NavLink>
               </li>
-            {props.currentUser ?
+            { props.currentUser ?
                 <>
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/profile">Profile</NavLink>

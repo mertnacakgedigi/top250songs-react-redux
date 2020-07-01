@@ -1,5 +1,5 @@
 const initialState= {
-    currentUser : null
+    currentUser : localStorage.getItem("uid")
 }
 
 const authReducer = (state = initialState, action) => {
