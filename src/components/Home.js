@@ -63,6 +63,7 @@ class Home extends Component {
               <thead>
                 <tr>
                   <th>#</th>
+                  <th></th>
                   <th>Song</th>
                   <th>Artist</th>
                   <th>General Rating</th>

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../store/actions/apiAction'
-import { FaStar } from 'react-icons/fa'
 import StarRatings from 'react-star-ratings';
 import "./star.css"
-import UserRating from './UserRating'
+
 export class Rating extends Component {
     constructor(props) {
         super(props);
@@ -17,8 +16,6 @@ export class Rating extends Component {
        
     }
     
-    
-
 
       handleSubmit = ( newRating ) =>{
     
@@ -39,8 +36,9 @@ export class Rating extends Component {
        if(filtered !== undefined) {var rating = filtered}
        
         const a  = this.props.song.a
+        const c = this.props.song.c
         if (a!==null){ var b = a.toFixed(1)}
-        console.log(b)
+        console.log(parseInt(b))
      
         return (
      
@@ -48,51 +46,52 @@ export class Rating extends Component {
             <td>         
             { typeof b !== "undefined" ?         
         <>  <StarRatings
-          rating={parseInt(b)}
+          rating={parseFloat(b)}
           starRatedColor="blue"
           changeRating={this.handleSubmit}
           numberOfStars={10}
           name='rating'
-          starDimension ="15px"
+          starDimension ="12px"
           starSpacing="0px"
           isSelectable="false"
 
-        /> <span>{b}</span>  </>
+        /> <br/> <span style={{fontSize:"15px",color:"black",textAlign:"center"}}>&emsp;{b}<span style={{fontSize:"12px",color:"grey", textAlign:"center"}}>{`  (${c} ratings)`}</span></span>  </>
         :
-        <StarRatings
+       <> <StarRatings
         rating= {0}
         starRatedColor="blue"
         changeRating={this.handleSubmit}
         numberOfStars={10}
         name='rating'
-        starDimension ="15px"
+        starDimension ="12px"
         starSpacing="0px"
 
-      /> 
+      /> <br/> <span style={{fontSize:"1px",color:"black",textAlign:"center"}}>c</span></>
         } </td>
             <td colSpan="2">
  
             { typeof rating !== "undefined" ?         
-        <StarRatings
+        <>  <StarRatings
           rating={rating.r}
           starRatedColor="blue"
           changeRating={this.handleSubmit}
           numberOfStars={10}
           name='rating'
-          starDimension ="15px"
+          starDimension ="12px"
           starSpacing="0px"
 
-        /> :
-        <StarRatings
+        /> <br/> <span style={{fontSize:"15px",color:"black",textAlign:"center"}}>&emsp;&emsp;&emsp;{`   ${rating.r}` }</span> </>
+        :
+        <> <StarRatings
         rating= {0}
         starRatedColor="blue"
         changeRating={this.handleSubmit}
         numberOfStars={10}
         name='rating'
-        starDimension ="15px"
+        starDimension ="12px"
         starSpacing="0px"
 
-      /> 
+      /> <br/> <span style={{fontSize:"1px",color:"black",textAlign:"center"}}>c</span></>
         }
             </td>
             </>

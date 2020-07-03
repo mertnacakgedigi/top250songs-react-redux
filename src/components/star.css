@@ -1,3 +1,18 @@
 .star {
     color : orange
 }
+
+@font-face {
+    font-family:'FiraSans';
+    src: local('FiraSans'), url("../style/font/font.ttf") format('truetype');
+}
+
+.table td { 
+  padding:0 0 0 0px;
+  vertical-align: middle;
+}
+
+.text{
+    padding: 0 0 0 0px;
+    font-size: 15px;
+}
