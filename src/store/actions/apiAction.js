@@ -1,4 +1,5 @@
-import axios from 'axios'
+
+import ListModel from '../../models/api'
 
 const getList = (data) =>{
     return {
@@ -8,26 +9,12 @@ const getList = (data) =>{
 }
 export const getListAction = (props) => {
     return (dispatch) => {
-        axios.get("http://localhost:3030/api/v1/list")
+        ListModel.fetchList()
             .then(res => dispatch(getList(res.data)))
             .catch(err => console.log(err))
     }
 }
 
-const getRating = (data) => {
-    return {
-        type :"GET_RATING",
-        data
-    }
-}
-
-export const getRatingAction = (props) => {
-    return (dispatch) => {
-        axios.get("http://localhost:3030/api/v1/rating")
-            .then(res => dispatch(getRating(res.data)))
-            .catch(err => console.log(err))
-    }
-}
 const postRating = (data) => {
     return {
         type : "POST_RATING",
@@ -37,10 +24,9 @@ const postRating = (data) => {
 
 export const postRatingAction = (data) => {
     return (dispatch) => {
-        axios.post("http://localhost:3030/api/v1/rating",data)
+        ListModel.postUserRating(data)
             .then(res => dispatch(postRating(data)))
-            .catch(err => console.log(err))
-            
+            .catch(err => console.log(err))       
     }
 }
 
@@ -55,7 +41,7 @@ const getUserRating = (data) => {
 export const getUserRatingAction = (data) => {
 
     return(dispatch) => {
-        axios.post("http://localhost:3030/api/v1/userrating",data)
+        ListModel.getUserRating(data)
             .then(res => {dispatch(getUserRating(res.data))})
             .catch(err => console.log(err))
     }

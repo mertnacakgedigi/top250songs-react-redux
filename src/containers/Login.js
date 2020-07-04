@@ -24,7 +24,7 @@ class Login extends Component {
   }
 
   render() {
-    // console.log('Hello From Render', this.state.address && this.state.address.street);
+  
     return (
       <div className="container mt-4">
         <div className="row">

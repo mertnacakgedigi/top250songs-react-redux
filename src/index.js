@@ -7,6 +7,7 @@ import {Provider} from "react-redux"
 import rootReducer from './store/reducers'
 import thunk from 'redux-thunk'
 import "./style/font/font.ttf"
+import './style/main.css'
 
 const store = createStore(rootReducer,applyMiddleware(thunk))
 

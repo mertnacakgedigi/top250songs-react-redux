@@ -16,3 +16,14 @@
     padding: 0 0 0 0px;
     font-size: 15px;
 }
+
+.generalRating {
+    font-size: 15px;
+    color:black;
+    text-align:center
+}
+.ratingCounts{
+    font-size:12px;
+    color:grey;
+    text-align: center
+}

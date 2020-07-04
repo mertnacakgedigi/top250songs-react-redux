@@ -1,5 +1,5 @@
 
-import UserModel from '../../models/user'
+import UserModel from '../../models/auth'
 
 const login = (data) => {
     return {
