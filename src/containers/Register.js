@@ -4,17 +4,14 @@ import * as actions from '../store/actions/authAction'
 
 class Register extends Component {
   state = {
-    // store the default values for the fields in the register form
     email: '',
     password: '',
     first_name: '',
     last_name: '',
   }
 
-  // handles changes made to the form fields: handleChange()
+
   handleChange = (event) => {
-    // console.log(event)
-    // set state with the value from the input
     this.setState({
         [event.target.name]: event.target.value
     })
@@ -22,11 +19,9 @@ class Register extends Component {
 
 
   handleSubmit = (event) => {
-    
     event.preventDefault()
     this.props.register(this.state)
     this.props.history.push('/login')
-
   }
 
   render() {

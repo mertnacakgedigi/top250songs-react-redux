@@ -14,6 +14,7 @@ export const loginAction = (props) => {
             .then(res => {
                 dispatch(login(res.data.data))
                 localStorage.setItem('uid', res.data.data)
+                window.location.reload()
             })
             .catch(err=> console.log(err))
     }
@@ -28,9 +29,10 @@ const logout = () => {
 export const logoutAction = () => {
   
     return(dispatch) => {
+        localStorage.removeItem('uid')
         UserModel.logout()
             .then(res => {
-                localStorage.removeItem('uid');
+            
                 dispatch(logout());
                
             })

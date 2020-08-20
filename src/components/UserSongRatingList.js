@@ -1,24 +1,67 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import StarRatings from 'react-star-ratings';
-export default function UserSongRatingList({rating,handleSubmit}) {
+import { connect } from "react-redux"
+import { useHistory } from "react-router-dom";
+
+function UserSongRatingList({postRating,song,rating,currentUser,list}) {
+
+
+  
+    const [songRating, setRating] = useState(5)
+    // const [clicked,setClick] = useState(true)
+
+
+    useEffect(()=>{ 
+        
+        setRating(rating.r || 1)
+    },[rating])
+    
+
+
+    let history = useHistory()
+
+
+    function handleClick (e) {
+        console.log(e.target.className)
+    }
+    
+    let handleSubmit = (newRating) => { 
+        
+        setRating(newRating)
+
+        let ratingData = {
+            rating:newRating, 
+            user_id:currentUser,
+            song_id:song.id
+        }
+
+        if (currentUser) {
+            postRating(ratingData)
+           
+        } else {
+            history.push('/login')
+        }    
+    }
+    console.log(songRating,song.name)
     return (
+        
+        <td onClick={handleClick} colSpan="2">
 
-        <td colSpan="2">
-
-        { typeof rating !== "undefined" ?         
+        { typeof songRating !== "undefined" ?         
         <>  <StarRatings
-        rating={rating.r}
+        rating={songRating}
         starRatedColor="blue"
         changeRating={handleSubmit}
+    
         numberOfStars={10}
         name='rating'
         starDimension ="12px"
         starSpacing="0px"
 
-        /> <br/> <span className="generalRating">&emsp;&emsp;&emsp;{`   ${rating.r}` }</span> </>
+        /> <br/> <span className="generalRating">&emsp;&emsp;&emsp;{`   ${songRating}` }</span> </>
         :
         <> <StarRatings
-        rating= {0}
+        rating= {songRating}
         starRatedColor="blue"
         changeRating={handleSubmit}
         numberOfStars={10}
@@ -31,3 +74,13 @@ export default function UserSongRatingList({rating,handleSubmit}) {
         </td>
     )
 }
+
+const mapStoreToProps = (store) => {
+
+  return {
+    list : store.listReducer.list,
+    currentUser : store.authReducer.currentUser,
+  }
+}
+
+export default connect(mapStoreToProps)(UserSongRatingList);

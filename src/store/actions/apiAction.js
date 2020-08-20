@@ -25,7 +25,10 @@ const postRating = (data) => {
 export const postRatingAction = (data) => {
     return (dispatch) => {
         ListModel.postUserRating(data)
-            .then(res => dispatch(postRating(data)))
+            .then(res => {
+                dispatch(postRating(data))
+               
+            })
             .catch(err => console.log(err))       
     }
 }

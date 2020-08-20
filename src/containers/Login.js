@@ -16,9 +16,11 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault()
+   
     this.props.login(this.state)
+    // window.location.reload()
     this.props.history.push('/')
+   
 
 
   }

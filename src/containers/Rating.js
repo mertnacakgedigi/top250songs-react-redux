@@ -7,40 +7,39 @@ import UserSongRatingList from '../components/UserSongRatingList'
 
 export class Rating extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            rating: null,
-            user_id:localStorage.getItem("uid"),
-            song_id:this.props.song.id
-        }; 
-    }  
-    
-    handleSubmit = ( newRating ) =>{
-    
-        this.setState({rating : newRating})
-        this.props.postRating({rating:parseInt(newRating), 
-            user_id:localStorage.getItem("uid"),
-             song_id:this.props.song.id})
-            window.location.reload()
+    state = {
+        userRating: Number,
+        average : "",
+        count : "" 
     }
+
+    componentDidMount(){
+        this.setState({
+            userRating : this.props.ratingRedux
+        })  
+    }
+
     
     render() {
         //get average of each song
+     
         const average  = this.props.song.a
         if (average!==null){ var averageFixed = average.toFixed(1)}
+        
 
         const ratingsCount = this.props.song.c
 
         //getUsersRatings
         let userRating = this.props.userRatingRedux
+       
         if(userRating!==null){ var songRatingsFromUser = userRating.result.find(element => element.song_id===this.props.song.id)}
+ 
         if(songRatingsFromUser !== undefined) {var rating = songRatingsFromUser}
           
         return (
             <>
               <AverageRatingList   count = {ratingsCount}  average={averageFixed} />
-              <UserSongRatingList rating ={rating} handleSubmit ={this.handleSubmit} />
+              <UserSongRatingList postRating ={this.props.postRating} song= {this.props.song} rating ={rating} />
             </>
         )
     }
@@ -48,7 +47,7 @@ export class Rating extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      rating : state.listReducer.userRating,
+      ratingRedux : state.listReducer.userRating,
       userRatingRedux : state.listReducer.userRatingList
     }
 }

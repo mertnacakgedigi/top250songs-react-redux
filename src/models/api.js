@@ -8,7 +8,7 @@ export default class ListModel {
     return request
   } 
   static postUserRating(data) {
-    let request = axios.post(`${REACT_APP_API_URL}/rating`,data)
+    let request = axios.post(`${REACT_APP_API_URL}/ratinguser`,data)
     return request
   }
   static getUserRating(data){
