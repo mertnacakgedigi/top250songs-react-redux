@@ -22,17 +22,22 @@ const listReducer = (state= initialState, action) => {
            let findIndex = temp.findIndex(element => element.id ===action.data.song_id)
             temp[findIndex].a = (temp[findIndex].c*temp[findIndex].a + action.data.rating)/(temp[findIndex].c + 1)
             temp[findIndex].c = temp[findIndex].c + 1
-
-            // let tempUserRate = [...state.userRatingList]
-            // let findIndexUser = tempUserRate.findIndex(element => element.id ===action.data.song_id)
-
+            let tempList = state.userRatingList
+            let newRate = {
+                r : action.data.rating,
+                song_id: action.data.song_id,
+                user_id: action.data.user_id,
+            }
+            let tempUserRate = [...tempList.result,newRate]
+            tempList.result = tempUserRate
             
 
             temp.sort((a,b)=> b.a  - a.a)
             return {
                 ...state,
                 userRating : action.data,
-                list : temp
+                list : temp,
+                userRatingList : tempList
             }
         case "USER_RATING" :
             return {

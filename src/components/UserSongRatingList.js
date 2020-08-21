@@ -12,9 +12,11 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
 
 
     useEffect(()=>{ 
-        
-        setRating(rating.r || 1)
-    },[rating])
+        console.log("heyy",song.name)
+        console.log(rating)
+        setRating(rating)
+
+    },[rating,song.name])
     
 
 
