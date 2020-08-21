@@ -14,7 +14,6 @@ export const loginAction = (props) => {
             .then(res => {
                 dispatch(login(res.data.data))
                 localStorage.setItem('uid', res.data.data)
-                window.location.reload()
             })
             .catch(err=> console.log(err))
     }

@@ -16,13 +16,8 @@ class Login extends Component {
   }
 
   handleSubmit = (event) => {
-   
     this.props.login(this.state)
-    // window.location.reload()
     this.props.history.push('/')
-   
-
-
   }
 
   render() {

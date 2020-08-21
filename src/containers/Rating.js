@@ -37,9 +37,6 @@ export class Rating extends Component {
         if(userRating!==null){ var songRatingsFromUser = userRating.result.find(element => element.song_id===this.props.song.id)}
  
         if(songRatingsFromUser !== undefined) {var rating = songRatingsFromUser.r}
-        console.log("---------")
-        console.log(userRating,rating,this.props.song.name)
-        console.log("---------")
         return (
             <>
               <AverageRatingList   count = {ratingsCount}  average={averageFixed} />

@@ -37,14 +37,13 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
             song_id:song.id
         }
 
-        if (currentUser) {
+        if (currentUser ) {
             postRating(ratingData)
            
         } else {
-            history.push('/login')
+            history.push('/register')
         }    
     }
-    console.log(songRating,song.name)
     return (
         
         <td onClick={handleClick} colSpan="2">
