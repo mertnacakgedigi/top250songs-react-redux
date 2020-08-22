@@ -20,16 +20,14 @@ class Home extends Component {
   }
   
   componentDidMount(){
-    console.log(this.props.currentUser,"didmount")
+    console.log("didmount")
     this.props.getList()
-    
   }
 
   componentDidUpdate(prevProps) {
-     console.log("didupdate")
     if (this.props.currentUser !== prevProps.currentUser) {
+      console.log(this.props.currentUser, prevProps.currentUser)
       this.props.getUserRating({user_id:this.props.currentUser})
-
     }
   }
   
