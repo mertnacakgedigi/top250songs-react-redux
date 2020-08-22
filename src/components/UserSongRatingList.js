@@ -9,11 +9,10 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
     useEffect(()=>{ 
         setRating(rating)
 
-    },[rating,song.name])
+    },[rating])
     
     let history = useHistory()
 
-    
     let handleSubmit = (newRating) => { 
        
         if(!rating){
@@ -27,40 +26,28 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
             }
     
             if (currentUser ) {
-                postRating(ratingData)     
+                postRating(ratingData)
+     
             } else {
                 history.push('/register')
             }   
         }
     }
-    return (
-        
-        <td colSpan="2">
-
-        { typeof songRating !== "undefined" ?         
-        <>  <StarRatings
-        rating={songRating}
-        starRatedColor="blue"
-        changeRating={handleSubmit}
-    
-        numberOfStars={10}
-        name='rating'
-        starDimension ="12px"
-        starSpacing="0px"
-
-        /> <br/> <span className="generalRating">&emsp;&emsp;&emsp;{`   ${songRating}` }</span> </>
-        :
-        <> <StarRatings
-        rating= {songRating}
-        starRatedColor="blue"
-        changeRating={handleSubmit}
-        numberOfStars={10}
-        name='rating'
-        starDimension ="12px"
-        starSpacing="0px"
-
-        /> <br/> <span>&emsp;</span></>
-        }
+    return (  
+        <td colSpan="2">        
+            <StarRatings
+                rating={songRating}
+                starRatedColor="blue"
+                changeRating={handleSubmit}
+                numberOfStars={10}
+                name='rating'
+                starDimension ="12px"
+                starSpacing="0px"
+            /> 
+            <br/>  
+            { typeof songRating !== "undefined"
+            ?  <span className="generalRating">&emsp;&emsp;&emsp; {songRating} </span>
+            :  <span>&emsp;</span> }
         </td>
     )
 }

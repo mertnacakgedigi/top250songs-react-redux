@@ -51,8 +51,8 @@ class Register extends Component {
                 <input onChange={this.handleChange} className="form-control form-control-lg" type="email"  name="email" value={this.state.email} />
               </div>
               <div className="form-group">
-                <label htmlFor="name">Password</label>
-                <input onChange={this.handleChange} className="form-control form-control-lg" type="name"  name="password" value={this.state.password} />
+                <label htmlFor="password">Password</label>
+                <input onChange={this.handleChange} className="form-control form-control-lg" type="password"  name="password" value={this.state.password} />
               </div>
 
               <button className="btn btn-primary float-right" type="submit">Register</button>
