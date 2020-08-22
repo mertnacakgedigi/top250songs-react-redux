@@ -4,28 +4,15 @@ import { connect } from "react-redux"
 import { useHistory } from "react-router-dom";
 
 function UserSongRatingList({postRating,song,rating,currentUser,list}) {
-
-
-  
     const [songRating, setRating] = useState(5)
-    const [clicked,setClick] = useState(false)
-
 
     useEffect(()=>{ 
-        console.log(rating,song.name)
         setRating(rating)
-        setClick(true)
 
     },[rating,song.name])
     
-
-
     let history = useHistory()
 
-
-    function handleClick (e) {
-        
-    }
     
     let handleSubmit = (newRating) => { 
        
@@ -40,18 +27,15 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
             }
     
             if (currentUser ) {
-                postRating(ratingData)
-                setClick(true)
-               
+                postRating(ratingData)     
             } else {
                 history.push('/register')
             }   
         }
- 
     }
     return (
         
-        <td onClick={handleClick} colSpan="2">
+        <td colSpan="2">
 
         { typeof songRating !== "undefined" ?         
         <>  <StarRatings

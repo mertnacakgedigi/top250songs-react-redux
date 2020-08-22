@@ -32,8 +32,6 @@ export class Rating extends Component {
         //getUsersRatings
         let userRating = this.props.userRatingRedux
 
-       
-       
         if(userRating!==null){ var songRatingsFromUser = userRating.result.find(element => element.song_id===this.props.song.id)}
  
         if(songRatingsFromUser !== undefined) {var rating = songRatingsFromUser.r}

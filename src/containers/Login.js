@@ -9,8 +9,6 @@ function Login (props) {
     password: '',
   })
 
-
-
   let handleChange = (event) => {
       setState({
         ...state,

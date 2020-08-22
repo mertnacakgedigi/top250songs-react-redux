@@ -1,11 +1,10 @@
 import axios from 'axios'
 
-const REACT_APP_API_URL = "http://localhost:3030/api/v1/auth"
+const REACT_APP_API_URL =  "https://back-top.herokuapp.com/api/v1/auth"
 
 
 export default class UserModel {
   static create(data) {
-    // we could add { withCredentials: true } to the axios request below if we want to log the user in upon signup
     let request = axios.post(`${REACT_APP_API_URL}/register`, data)
     return request
   }

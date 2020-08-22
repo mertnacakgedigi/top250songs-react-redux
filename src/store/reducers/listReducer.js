@@ -4,13 +4,15 @@ const initialState = {
     rating: [],
     userRating : null,
     userRatingList : null,
+    loading : false
 }
 const listReducer = (state= initialState, action) => {
    switch (action.type){
        case "GET_LIST":
            return {
             ...state,
-            list: action.data
+            list: action.data,
+            loading : true
            }
         case "GET_RATING" :
             return {

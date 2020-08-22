@@ -1,7 +1,5 @@
 
 import UserModel from '../../models/auth'
-import ListModel from '../../models/api'
-import List from '../../containers/List'
 
 const login = (data) => {
     return {
@@ -15,8 +13,7 @@ export const loginAction = (props) => {
         UserModel.login(props)
             .then(res => {
                 dispatch(login(res.data.data))
-                localStorage.setItem('uid', res.data.data)  
-                console.log("loginaction")    
+                localStorage.setItem('uid', res.data.data)    
             })
             .catch(err=> console.log(err))
     }

@@ -8,9 +8,7 @@ import Register from '../containers/Register'
 export default (props) => (
   <Switch>
     <Route exact path="/" component={ Home } />
-
     <Route path="/login" render={ (routeProps) => {
-
       return <Login  { ...routeProps } /> 
     } } />
     <Route path="/register" component={ Register } />

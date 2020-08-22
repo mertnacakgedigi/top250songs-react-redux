@@ -5,11 +5,13 @@ import TopSongList from '../components/TopSongList'
 import Table from 'react-bootstrap/Table'
 import Rating from './Rating'
 import ListHeader from '../components/ListHeader'
+import Loading from '../components/Loading'
+
 
 
 class Home extends Component {
   state = {
-    visible :20
+    visible :20,
   }
 
   loadMore =() => {
@@ -20,6 +22,7 @@ class Home extends Component {
   
   componentDidMount(){
     this.props.getList()
+    this.setState({loading : true})
     this.props.getUserRating({user_id:this.props.currentUser})
   }
 
@@ -29,7 +32,6 @@ class Home extends Component {
     }
   }
   
-
   render () {
    const list = this.props.list.slice(0,this.state.visible).map((song,idx)=> {  
      return (
@@ -39,17 +41,22 @@ class Home extends Component {
      </tr>
      )
    })
+
+   const loading = this.props.loading
    
     return (   
-      <React.Fragment>   
+      <React.Fragment>    
         <Table striped borderless hover>
           <ListHeader/>
+          {loading ? 
           <tbody>
-            {list}
-          </tbody>
+          {list}
+          </tbody> :
+          <Loading/>
+          }   
         </Table>
         <button onClick={this.loadMore} type="button" className="load-more">Load more</button>
-      </React.Fragment>
+       </React.Fragment>
     )
   }
 }
@@ -60,6 +67,7 @@ const mapStateToProps = (state) => {
     list : state.listReducer.list,
     userRating : state.listReducer.userRating,
     currentUser : state.authReducer.currentUser,
+    loading : state.listReducer.loading
   }
 }
 

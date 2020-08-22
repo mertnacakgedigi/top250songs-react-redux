@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const REACT_APP_API_URL = "http://localhost:3030/api/v1"
+const REACT_APP_API_URL = "https://back-top.herokuapp.com/api/v1"
 
 export default class ListModel {
   static fetchList(){
