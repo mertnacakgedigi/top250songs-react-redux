@@ -1,40 +1,43 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {connect} from "react-redux"
 import * as actions from '../store/actions/authAction'
+import { useHistory } from 'react-router-dom';
 
-
-class Login extends Component {
-  state = {
+function Login (props) {
+  const [state,setState] = useState({
     email: '',
     password: '',
-  }
+  })
 
-  handleChange = (event) => {
-    this.setState({
+
+
+  let handleChange = (event) => {
+      setState({
+        ...state,
       [event.target.name]: event.target.value,
     })
   }
 
-  handleSubmit = (event) => {
-    this.props.login(this.state)
-    this.props.history.push('/')
+  const history = useHistory();
+  
+  let handleSubmit = (event) => {
+    props.login(state)
+    history.push('/')
   }
 
-  render() {
-  
     return (
       <div className="container mt-4">
         <div className="row">
           <div className="col-md-4 offset-md-4">
             <h4 className="mb-3">Login</h4>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Email</label>
-                <input onChange={this.handleChange} className="form-control form-control-lg" type="email" id="email" name="email" value={this.state.email} />
+                <input onChange={handleChange} className="form-control form-control-lg" type="email" id="email" name="email" value={state.email} />
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
-                <input onChange={this.handleChange} className="form-control form-control-lg" type="password" id="password" name="password" value={this.state.password} />
+                <input onChange={handleChange} className="form-control form-control-lg" type="password" id="password" name="password" value={state.password} />
               </div>
               <button className="btn btn-primary float-right" type="submit">Login</button>
             </form>
@@ -42,7 +45,7 @@ class Login extends Component {
         </div>
       </div>
     )
-  }
+
 }
 
 const mapStateToProps = (state) => {
@@ -53,7 +56,7 @@ const mapStateToProps = (state) => {
 
 const mapDispactToProps = (dispatch) => {
   return {
-    login : (props) => dispatch(actions.loginAction(props))
+    login : (props) => dispatch(actions.loginAction(props)),
   }
 }
 

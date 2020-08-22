@@ -1,5 +1,7 @@
 
 import UserModel from '../../models/auth'
+import ListModel from '../../models/api'
+import List from '../../containers/List'
 
 const login = (data) => {
     return {
@@ -13,7 +15,8 @@ export const loginAction = (props) => {
         UserModel.login(props)
             .then(res => {
                 dispatch(login(res.data.data))
-                localStorage.setItem('uid', res.data.data)
+                localStorage.setItem('uid', res.data.data)  
+                console.log("loginaction")    
             })
             .catch(err=> console.log(err))
     }
@@ -28,10 +31,10 @@ const logout = () => {
 export const logoutAction = () => {
   
     return(dispatch) => {
-        localStorage.removeItem('uid')
+        
         UserModel.logout()
             .then(res => {
-            
+                localStorage.removeItem('uid')
                 dispatch(logout());
                
             })

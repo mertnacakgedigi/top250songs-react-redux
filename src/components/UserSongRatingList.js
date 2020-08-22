@@ -12,8 +12,6 @@ function UserSongRatingList({postRating,song,rating,currentUser,list}) {
 
 
     useEffect(()=>{ 
-        console.log("heyy",song.name)
-        console.log(rating)
         setRating(rating)
 
     },[rating,song.name])

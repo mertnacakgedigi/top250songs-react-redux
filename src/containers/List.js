@@ -20,12 +20,22 @@ class Home extends Component {
   }
   
   componentDidMount(){
+    console.log(this.props.currentUser,"didmount")
     this.props.getList()
-    this.props.getUserRating({user_id:this.state.user_id})
+    
   }
 
+  componentDidUpdate(prevProps) {
+     console.log("didupdate")
+    if (this.props.currentUser !== prevProps.currentUser) {
+      this.props.getUserRating({user_id:this.props.currentUser})
+
+    }
+  }
+  
 
   render () {
+    console.log("list")
    const list = this.props.list.slice(0,this.state.visible).map((song,idx)=> {  
      return (
      <tr>
@@ -53,7 +63,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     list : state.listReducer.list,
-    userRating : state.listReducer.userRating
+    userRating : state.listReducer.userRating,
+    currentUser : state.authReducer.currentUser,
   }
 }
 
