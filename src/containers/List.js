@@ -20,6 +20,7 @@ class Home extends Component {
   
   componentDidMount(){
     this.props.getList()
+    this.props.getUserRating({user_id:this.props.currentUser})
   }
 
   componentDidUpdate(prevProps) {
